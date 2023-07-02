@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home/Home";
-import Products from "../components/Products";
-import Footer from "../components/Footer";
-import Cart from "../components/Cart";
+import Products from "../components/Products/Products";
+import Cart from "../components/Cart/Cart";
 import NavbarA from "../components/Navbar/Navbar";
-import Register from "../components/Register";
-import ForgotPassword from "../components/ForgotPassword";
-import ResetPassword from "../components/ResetPassword";
+import Register from "../components/Register/Register";
+import ForgotPassword from "../components/ForgotPassword/ForgotPassword";
+import ResetPassword from "../components/ResetPassoword/ResetPassword";
 import Navbar from "../components/Navbar/Navbar";
+import Stripe from "../components/Stripe/Stripe";
 
 function Router() {
   return (
@@ -21,8 +21,8 @@ function Router() {
           <Route path="/forgotrecovery" element={<ResetPassword />}></Route>
           <Route path="/products" element={<Products />}></Route>
           <Route path="/cart" element={<Cart/>}></Route>
+          <Route path="/stripe/:cid" element={<Stripe />} />
         </Routes>
-        <Footer />
       </BrowserRouter>
   );
 }

@@ -6,9 +6,10 @@ const Cart = () => {
   const [cart, setCart] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const { cart: cid } = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     setIsLoading(true);
-    const { cart: cid } = JSON.parse(localStorage.getItem("user"));
+
     fetch(`http://localhost:8080/api/carts/${cid}`, {
       method: "GET",
       headers: {
@@ -26,7 +27,7 @@ const Cart = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, []);
+  }, [cid]);
 
   const handleDeleteProduct = async (pid) => {
     const { cart: cid } = JSON.parse(localStorage.getItem("user"));
@@ -53,6 +54,12 @@ const Cart = () => {
 
   const handleContinueShopping = () => {
     window.location.href = "/products";
+  };
+
+  const handlerPayment = (cart) => {
+    const userCart = cart.products;
+    console.log(userCart);
+    window.location.href = `/stripe/${cid}`;
   };
 
   return (
@@ -126,8 +133,8 @@ const Cart = () => {
               Total: ${cart?.totalPrice}
             </Card.Title>
             <div className="d-flex mt-3">
-              <Button className="mx-2 w-50 " variant="success">
-                Iniciar Pago
+              <Button className="mx-2 w-50 " variant="success" onClick={() => handlerPayment(cart)}>
+                Finalizar Compra
               </Button>
               <Button
                 className="mx-2 w-50 "
