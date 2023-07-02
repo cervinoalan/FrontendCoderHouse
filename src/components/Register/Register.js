@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const [first_name, setFirstName] = useState("");
@@ -48,12 +49,22 @@ const Register = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("Registro exitoso:", data);
-        window.location.href = '/';
+        Swal.fire({
+          icon: 'success',
+          title: `Registro exitoso!`,
+          showConfirmButton: false,
+        });
+        setTimeout(function () {
+          window.location.replace('/')
+        }, 2000)
       })
       .catch((err) => {
         console.log("Error en el registro:", err);
-        // Manejar el error de registro
+        Swal.fire({
+          icon: 'error',
+          title: `Ocurrio un error al intentar registrarse`,
+          showConfirmButton: false,
+        });
       });
 
     // Restablece los campos del formulario

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 const RecoverPassword = () => {
   const [email, setEmail] = useState("");
@@ -8,9 +9,24 @@ const RecoverPassword = () => {
     setEmail(e.target.value);
   };
 
+  const isValidEmail = (email) => {
+    // Expresión regular para validar el formato de correo electrónico
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
+    if (!isValidEmail(email)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Email incorrecto',
+        text: 'El correo ingresado no es válido.',
+      });
+      return;
+    }
+  
     fetch("http://localhost:8080/api/session/forgotPassword", {
       method: "POST",
       headers: {
@@ -20,14 +36,21 @@ const RecoverPassword = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        window.alert(data.message);
+        Swal.fire({
+          icon: 'success',
+          title: `Se envio un mail a ${email} para recuperar la contraseña`,
+          showConfirmButton: false,
+        });
         console.log(data);
       })
       .catch((error) => {
-        window.alert("Error al enviar correo");
+        Swal.fire({
+          icon: 'error',
+          title: 'Ocurrió un error inesperado',
+        });
         console.log(error);
       });
-
+  
     setEmail("");
   };
 

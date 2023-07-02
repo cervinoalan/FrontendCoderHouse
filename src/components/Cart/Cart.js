@@ -56,7 +56,7 @@ const Cart = () => {
     window.location.href = "/products";
   };
 
-  const handlerPayment = (cart) => {
+  const handlePayment = (cart) => {
     const userCart = cart.products;
     console.log(userCart);
     window.location.href = `/stripe/${cid}`;
@@ -133,7 +133,12 @@ const Cart = () => {
               Total: ${cart?.totalPrice}
             </Card.Title>
             <div className="d-flex mt-3">
-              <Button className="mx-2 w-50 " variant="success" onClick={() => handlerPayment(cart)}>
+              <Button
+                className="mx-2 w-50"
+                variant="success"
+                onClick={() => handlePayment(cart)}
+                disabled={cart?.products.length === 0}
+              >
                 Finalizar Compra
               </Button>
               <Button

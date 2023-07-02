@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
-
+import { toast } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Products = () => {
   const [products, setProducts] = useState([]);
 
@@ -32,6 +34,10 @@ const Products = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        toast.success('Producto agregado al carrito.', {
+          position: 'top-right',
+          autoClose: 3000, // Duración de la alerta en milisegundos (opcional)
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -40,7 +46,7 @@ const Products = () => {
 
   return (
     <div>
-      <h2>Lista de productos:</h2>
+      <h2 className="m-4">Lista de productos</h2>
       <Row className="justify-content-center">
         {Array.isArray(products) ? (
           products.map((product) => (
@@ -72,6 +78,7 @@ const Products = () => {
           <p>No se encontraron productos.</p>
         )}
       </Row>
+      <ToastContainer />
     </div>
   );
 };

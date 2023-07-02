@@ -39,25 +39,25 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div className="container">
-        <NavLink className="navbar-brand" onClick={handleInicio}>
-          Inicio
+<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div className="container">
+    <NavLink className="navbar-brand" onClick={handleInicio}>
+      Inicio
+    </NavLink>
+    <ul className="navbar-nav ml-auto">
+      <li className="nav-item">
+        <button className="nav-link btn btn-link mt-1 " onClick={handleLogout}>
+          Cerrar Sesión
+        </button>
+      </li>
+      <li className="nav-item ml-auto">
+        <NavLink className="nav-link" to="/cart">
+          <FaShoppingCart size={30} className="me-2" />
         </NavLink>
-        <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            <button className="nav-link btn btn-link" onClick={handleLogout}>
-              Cerrar Sesión
-            </button>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/cart">
-            <FaShoppingCart size={30} className="me-2" />
-            </NavLink>
-          </li>
-        </ul>
-      </div>
-    </nav>
+      </li>
+    </ul>
+  </div>
+</nav>
   );
 };
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Form, Button } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 const ResetPassword = () => {
 
@@ -19,8 +20,21 @@ const ResetPassword = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        window.alert(data.message);
-        console.log(data);
+        if(data.status === "error"){
+          Swal.fire({
+            icon: 'error',
+            title: `${data.message}`,
+          });
+        } else{
+          Swal.fire({
+            icon: 'success',
+            title: `${data.message}`,
+            showConfirmButton: false,
+          });
+          setTimeout(function () {
+            window.location.replace('/')
+          }, 2000)
+        }
       })
       .catch((error) => {
         console.log(error);
